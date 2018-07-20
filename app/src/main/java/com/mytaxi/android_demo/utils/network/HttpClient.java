@@ -31,7 +31,6 @@ import static com.mytaxi.android_demo.misc.Constants.SOCKET_TIMEOUT;
 
 public class HttpClient {
 
-   ;
     private final OkHttpClient mClient;
     private final JsonParser mJsonParser;
 
@@ -41,9 +40,8 @@ public class HttpClient {
     }
 
     public void fetchDrivers(final DriverCallback driverCallback) {
-        int amount = 256;
-        String seed = "23f8827e04239990";
-        String url = Constants.RANDOM_USER_URL + "?results=" + amount + "&seed=" + seed;
+
+        String url = Constants.RANDOM_USER_URL + "?results=" + Constants.AMOUNT + "&seed=" + Constants.SEED;
         Request request = new Request.Builder().url(url).build();
         mClient.newCall(request).enqueue(new Callback() {
             @Override

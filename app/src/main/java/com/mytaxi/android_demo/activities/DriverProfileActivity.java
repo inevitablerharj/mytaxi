@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.mytaxi.android_demo.R;
+import com.mytaxi.android_demo.misc.Constants;
 import com.mytaxi.android_demo.models.Driver;
 import com.mytaxi.android_demo.utils.GlideApp;
 
@@ -19,7 +20,6 @@ import java.text.SimpleDateFormat;
 
 public class DriverProfileActivity extends AppCompatActivity {
 
-    public static final String EXTRA_DRIVER = "driver";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +28,7 @@ public class DriverProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        final Driver driver = intent.getParcelableExtra(EXTRA_DRIVER);
+        final Driver driver = intent.getParcelableExtra(Constants.EXTRA_DRIVER);
         setProfile(driver);
     }
 

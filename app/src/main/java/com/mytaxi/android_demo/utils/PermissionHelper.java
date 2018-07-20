@@ -5,9 +5,9 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-public class PermissionHelper {
+import com.mytaxi.android_demo.misc.Constants;
 
-    static public final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+public class PermissionHelper {
 
     private boolean mLocationPermissionGranted;
 
@@ -24,7 +24,7 @@ public class PermissionHelper {
         } else {
             ActivityCompat.requestPermissions(activity,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                    Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
 

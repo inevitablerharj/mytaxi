@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.mytaxi.android_demo.activities.AuthenticationActivity;
 import com.mytaxi.android_demo.activities.DriverProfileActivity;
 import com.mytaxi.android_demo.models.Driver;
 
@@ -18,5 +19,9 @@ public class AppNavigator {
         Intent intent = new Intent(activity, DriverProfileActivity.class);
         intent.putExtra(key, driver);
         return intent;
+    }
+
+    public Intent navigateToAuthenticationActivity() {
+        return new Intent(activity, AuthenticationActivity.class);
     }
 }

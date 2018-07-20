@@ -32,6 +32,7 @@ import com.mytaxi.android_demo.App;
 import com.mytaxi.android_demo.R;
 import com.mytaxi.android_demo.adapters.DriverAdapter;
 import com.mytaxi.android_demo.dependencies.component.AppComponent;
+import com.mytaxi.android_demo.misc.Constants;
 import com.mytaxi.android_demo.models.Driver;
 import com.mytaxi.android_demo.utils.AppNavigator;
 import com.mytaxi.android_demo.utils.PermissionHelper;
@@ -43,13 +44,10 @@ import javax.inject.Inject;
 import static com.mytaxi.android_demo.misc.Constants.DEFAULT_LOCATION;
 import static com.mytaxi.android_demo.misc.Constants.DEFAULT_ZOOM;
 import static com.mytaxi.android_demo.misc.Constants.LOG_TAG;
-import static com.mytaxi.android_demo.utils.PermissionHelper.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 
 public class MainActivity extends AuthenticatedActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
-
-    private static final String KEY_LOCATION = "location";
 
     @Inject
     HttpClient mHttpClient;
@@ -79,7 +77,7 @@ public class MainActivity extends AuthenticatedActivity
     protected void onResume() {
         super.onResume();
         if (!isAuthenticated()) {
-            startActivity(AuthenticationActivity.createIntent(MainActivity.this));
+            startActivity(new AppNavigator(MainActivity.this).navigateToAuthenticationActivity());
         } else {
             ((TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_username)).setText(mSharedPrefStorage.loadUser().getUsername());
         }
@@ -128,7 +126,7 @@ public class MainActivity extends AuthenticatedActivity
                 mAdapter = new DriverAdapter(MainActivity.this, mDrivers, new DriverAdapter.OnDriverClickCallback() {
                     @Override
                     public void execute(Driver driver) {
-                        new AppNavigator(MainActivity.this).createIntent(driver,DriverProfileActivity.EXTRA_DRIVER);
+                        startActivity(new AppNavigator(MainActivity.this).createIntent(driver,Constants.EXTRA_DRIVER));
                     }
                 });
                 runOnUiThread(new Runnable() {
@@ -171,7 +169,7 @@ public class MainActivity extends AuthenticatedActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mPermissionHelper.setLocationPermissionGranted(false);
         switch (requestCode) {
-            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+            case Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -232,10 +230,10 @@ public class MainActivity extends AuthenticatedActivity
         if (id == R.id.nav_logout) {
             mSharedPrefStorage.resetUser();
             Log.i(LOG_TAG, "User is logged out");
-            startActivity(AuthenticationActivity.createIntent(MainActivity.this));
+
+            startActivity(new AppNavigator(MainActivity.this).navigateToAuthenticationActivity());
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -243,14 +241,14 @@ public class MainActivity extends AuthenticatedActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (mMap != null) {
-            outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
+            outState.putParcelable(Constants.KEY_LOCATION, mLastKnownLocation);
             super.onSaveInstanceState(outState);
         }
     }
 
     private void loadInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            mLastKnownLocation = savedInstanceState.getParcelable(Constants.KEY_LOCATION);
         }
     }
 

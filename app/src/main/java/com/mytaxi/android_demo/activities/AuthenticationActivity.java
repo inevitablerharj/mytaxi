@@ -36,10 +36,6 @@ public class AuthenticationActivity extends AppCompatActivity {
     private EditText mEditTextUsername;
     private EditText mEditTextPassword;
 
-    public static Intent createIntent(Activity activity) {
-        return new Intent(activity, AuthenticationActivity.class);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +48,6 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
     private void initializeControls(){
-
         mEditTextUsername = findViewById(R.id.edt_username);
         mEditTextPassword = findViewById(R.id.edt_password);
         Button buttonLogin = findViewById(R.id.btn_login);

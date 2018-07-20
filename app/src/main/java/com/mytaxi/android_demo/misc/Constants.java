@@ -21,4 +21,22 @@ public final class Constants {
 
     public static final String RANDOM_USER_URL = "https://randomuser.me/api/";
 
+    public static final String PREFS_NAME = "MytaxiPrefs";
+
+    public static final String USERNAME = "username";
+
+    public static final String SALT = "salt";
+
+    public static final String SHA_256 = "sha256";
+
+    static public final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+
+    public static final String KEY_LOCATION = "location";
+
+    public static final String EXTRA_DRIVER = "driver";
+
+    public static final int AMOUNT = 256;
+
+    public static final String SEED = "23f8827e04239990";
+
 }
